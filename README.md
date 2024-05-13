@@ -4,11 +4,8 @@ This project demonstrates the use of require(), assert(), and revert() statement
 
 ## Description
 
-This Solidity smart contract provides examples of error handling techniques using require(), assert(), and revert() statements:
-
-- The `setNumber` function demonstrates using `require()` to validate input conditions before updating a state variable.
-- The `assertExample` function showcases `assert()` to check for internal errors within a pure function.
-- The `revertExample` function illustrates using `revert()` to revert a transaction based on certain conditions.
+The smart contract manages payments between two parties. It uses require() to ensure valid input conditions, assert() to check internal consistency, and revert() to handle exceptional conditions. 
+These error handling techniques ensure the contract operates securely and reliably, facilitating transparent and decentralized payment transactions.
 
 ## Getting Started
 
