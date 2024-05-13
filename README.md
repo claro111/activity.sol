@@ -4,8 +4,7 @@ This project demonstrates the use of require(), assert(), and revert() statement
 
 ## Description
 
-The smart contract manages payments between two parties. It uses require() to ensure valid input conditions, assert() to check internal consistency, and revert() to handle exceptional conditions. 
-These error handling techniques ensure the contract operates securely and reliably, facilitating transparent and decentralized payment transactions.
+The smart contract manages payments between two parties. It uses require() to ensure valid input conditions, assert() to check internal consistency, and revert() to handle exceptional conditions. These error handling techniques ensure the contract operates securely and reliably, facilitating transparent and decentralized payment transactions.
 
 ## Getting Started
 
