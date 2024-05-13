@@ -18,23 +18,30 @@ Once you are on the Remix website, create a new file by clicking on the "+" icon
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract RequireAssertRevertExample {
-    uint256 public storedData;
+contract ErrorHandlingExample {
+    uint public myNumber;
 
-    function set(uint256 x) public {
-        require(x != 0, "Input must not be zero");
-        assert(x != 10);
-        storedData = x;
+    function setNumber(uint _num) public {
+        require(_num != 0, "Number cannot be zero");
+
+        myNumber = _num;
     }
-    
-    function assertExample() public pure returns (uint256) {
-        assert(10 != 20); // Always true, doesn't revert
-        return 30;
+
+    function assertExample(uint _x) public pure returns (uint) {
+        uint y = _x + 10;
+
+        assert(y > _x);
+
+        return y;
     }
-    
-    function revertExample(uint256 a, uint256 b) public pure returns (uint256) {
-        require(b != 0, "Division by zero is not allowed");
-        return a / b; // Division will revert if b is zero
+
+    function revertExample(uint _num) public pure returns (string memory) {
+
+        if (_num == 50) {
+            revert("Wrong number");
+        }
+
+        return "No error";
     }
 }
 ```
