@@ -1,4 +1,4 @@
-# activity.sol
+# MOdule1.sol
 
 This project demonstrates the use of require(), assert(), and revert() statements in Solidity smart contracts.
 
