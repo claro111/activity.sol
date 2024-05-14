@@ -15,35 +15,43 @@ To run this program, you can use Remix, an online Solidity IDE. To get started, 
 Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., HelloWorld.sol). Copy and paste the following code into the file:
 
 ```
-[// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract ErrorHandlingExample {
-    uint public myNumber;
+contract SimpleVotingSystem {
+    mapping(address => bool) public registeredVoters;
+    mapping(bytes32 => uint) public votesReceived;
+    bytes32 public winningOption;
+    uint public maxVotes;
 
-    function setNumber(uint _num) public {
-        require(_num != 0, "Number cannot be zero");
-
-        myNumber = _num;
+    // Register a voter
+    function registerVoter() public {
+        require(!registeredVoters[msg.sender], "Already registered");
+        registeredVoters[msg.sender] = true;
     }
 
-    function assertExample(uint _x) public pure returns (uint) {
-        uint y = _x + 10;
-
-        assert(y > _x);
-
-        return y;
-    }
-
-    function revertExample(uint _num) public pure returns (string memory) {
-
-        if (_num == 50) {
-            revert("Wrong number");
+    // Cast a vote
+    function vote(bytes32 _option) public {
+        require(registeredVoters[msg.sender], "Voter not registered");
+        votesReceived[_option]++;
+        assert(votesReceived[_option] > 0); // Ensure vote count doesn't overflow
+        if (votesReceived[_option] > maxVotes) {
+            maxVotes = votesReceived[_option];
+            winningOption = _option;
         }
-
-        return "No error";
     }
-}](https://www.loom.com/share/069949c8eff741cd936fba42f7a3ee26?sid=3a87a2e1-4547-465b-8ba5-19f368f37a48)
+
+    // Example function using revert
+    function checkOption(bytes32 _option) public pure returns (string memory) {
+        require(_option != bytes32(0), "Option cannot be empty");
+        if (_option == "ERROR") {
+            revert("Invalid option");
+        }
+        return "Option is valid";
+    }
+}
+
+
 ```
 
 To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.4" (or another compatible version), and then click on the "Compile HelloWorld.sol" button.
