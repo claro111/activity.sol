@@ -20,18 +20,18 @@ pragma solidity ^0.8.0;
 
 contract SimpleVotingSystem {
     mapping(address => bool) public registeredVoters;
-    mapping(bytes32 => uint) public votesReceived;
-    bytes32 public winningOption;
+    mapping(string => uint) public votesReceived;
+    string public winningOption;
     uint public maxVotes;
 
     // Register a voter
-    function registerVoter() public {
-        require(!registeredVoters[msg.sender], "Already registered");
-        registeredVoters[msg.sender] = true;
+    function registerVoter(address _voter) public {
+        require(!registeredVoters[_voter], "Already registered");
+        registeredVoters[_voter] = true;
     }
 
     // Cast a vote
-    function vote(bytes32 _option) public {
+    function vote(string memory _option) public {
         require(registeredVoters[msg.sender], "Voter not registered");
         votesReceived[_option]++;
         assert(votesReceived[_option] > 0); // Ensure vote count doesn't overflow
@@ -42,14 +42,15 @@ contract SimpleVotingSystem {
     }
 
     // Example function using revert
-    function checkOption(bytes32 _option) public pure returns (string memory) {
-        require(_option != bytes32(0), "Option cannot be empty");
-        if (_option == "ERROR") {
+    function checkOption(string memory _option) public pure returns (string memory) {
+        require(bytes(_option).length > 0, "Option cannot be empty");
+        if (keccak256(bytes(_option)) == keccak256(bytes("ERROR"))) {
             revert("Invalid option");
         }
         return "Option is valid";
     }
 }
+
 
 
 ```
